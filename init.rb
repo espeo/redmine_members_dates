@@ -1,3 +1,4 @@
+require 'espeo_members_dates/patches/members_controller_patch'
 require 'espeo_members_dates/hooks'
 
 Redmine::Plugin.register :espeo_members_dates do

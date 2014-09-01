@@ -1,0 +1,30 @@
+<th class="dates">
+  <%= t(:label_date_range) %>
+
+  <div class="new-member-form-append" style="display:none">
+    <p>
+      <%= t(:label_date_from) %>
+      <%= text_field_tag("membership[starts_on]", nil, :size => 11, :id => "membership_starts_on") + calendar_for("membership_starts_on") %>
+      <%= t(:label_date_to).downcase %>
+      <%= text_field_tag("membership[ends_on]", nil, :size => 11, :id => "membership_ends_on") + calendar_for("membership_ends_on") %>
+      (<%= t(:optional) %>)
+    </p>
+  </div>
+
+  <script type="text/javascript">
+    $(document).one('ready', function(){
+      // Move .dates cells to be before the "Edit" "Delete" column.
+      $("table.members th.dates, table.members td.dates").each(function(i, element){
+        $(element).insertBefore( $(element).prev() );
+      });
+
+      // Move form contents from _members_dates_td.html.erb to the member's edit form.
+      $(".member-roles-form-append").each(function(i, element){
+        $(element).insertBefore( $(element).closest("tr").find(".roles form p:last-child") ).show();
+      });
+
+      // Move form contents (visible above this script) to the member's new form.
+      $(".new-member-form-append").insertBefore("form#new_membership fieldset > p:last-child").show();
+    });
+  </script>
+</th>

@@ -1,3 +1,5 @@
+require 'espeo_members_dates/hooks'
+
 Redmine::Plugin.register :espeo_members_dates do
   name 'Members\' dates plugin'
   author 'espeo@jtom.me'

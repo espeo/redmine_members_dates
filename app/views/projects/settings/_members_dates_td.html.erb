@@ -1,0 +1,12 @@
+<td class="dates">
+  <%= "#{format_date(member.starts_on)} - #{format_date(member.ends_on)}" %>
+
+  <div class="member-roles-form-append" data-member-id="<%= member.id %>" style="display:none">
+    <!-- This will be appended to the member's edit form. -->
+    <%= t(:label_date_from) %>
+    <%= text_field_tag("membership[starts_on]", member.starts_on, :size => 11, :id => "membership_#{member.id}_starts_on") + calendar_for("membership_#{member.id}_starts_on") %>
+    <%= t(:label_date_to).downcase %>
+    <%= text_field_tag("membership[ends_on]", member.ends_on, :size => 11, :id => "membership_#{member.id}_ends_on") + calendar_for("membership_#{member.id}_ends_on") %>
+    (<%= t(:optional) %>)
+  </div>
+</td>

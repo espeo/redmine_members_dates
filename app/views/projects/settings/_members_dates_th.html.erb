@@ -12,7 +12,11 @@
   </div>
 
   <script type="text/javascript">
-    $(document).one('ready', function(){
+    function renderMembersDates(){
+      if ( $("table.members").hasClass("members-dates-rendered") ) {
+        return;
+      }
+
       // Move .dates cells to be before the "Edit" "Delete" column.
       $("table.members th.dates, table.members td.dates").each(function(i, element){
         $(element).insertBefore( $(element).prev() );
@@ -25,6 +29,21 @@
 
       // Move form contents (visible above this script) to the member's new form.
       $(".new-member-form-append").insertBefore("form#new_membership fieldset > p:last-child").show();
-    });
+
+      $("table.members").addClass("members-dates-rendered");
+    }
+
+    $(document).one('ready', renderMembersDates);
+
+    // Let's wrap existing hideOnLoad, to inject renderMembersDates() into there
+    // (hideOnLoad is called every time after we refresh the content via members#create's or members#update's response)
+    newHideOnLoad = (function(oldHideOnLoad){
+      return function newHideOnLoad(){
+        renderMembersDates();
+
+        return oldHideOnLoad.apply(this, arguments);
+      };
+    })(hideOnLoad);
+    hideOnLoad = newHideOnLoad;
   </script>
 </th>
